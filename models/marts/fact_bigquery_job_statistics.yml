@@ -1,0 +1,65 @@
+version: 2
+
+models:
+  - name: 'fact_bigquery_job_statistics'
+    description: "Bigquery job metrics"
+    columns:
+      - name: 'metrics_sk'
+        description: "Table primary key. Made from the user_fk, query_fk and metric_date"
+        tests:
+          - unique
+          - not_null
+
+      - name: 'user_fk'
+        description: "Foreign key from dim_user"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_user')
+              field: user_sk
+
+      - name: 'query_fk'
+        description: "Foreign key from dim_query"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_query')
+              field: query_sk
+
+      - name: 'metric_date'
+        description: "Foreign key from dim_calendar table"
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_calendar')
+              field: metric_date
+
+      - name: 'referenced_dataset_id'
+        description: "This column contains the ID of the dataset that contains the table(s) referenced in the query."
+
+      - name: 'referenced_table_id'
+        description: "This column contains the ID of the table(s) referenced in the query."
+
+      - name: 'destination_dataset_id'
+        description: "This column contains the ID of the destination dataset for the results of the query. If the query does not have a destination table, this column will be null."
+
+      - name: 'destination_table_id'
+        description: "This column contains the ID of the destination table for the results of the query. If the query does not have a destination table, this column will be null."
+
+      - name: 'query_time'
+        description: "This column represents the duration in milliseconds that it took to execute a query"
+
+      - name: 'total_billed_mb'
+        description: "This column contains the total billed amount for megabyte processed in a query"
+
+      - name: 'cost_usd'
+        description: "This column contains the total amount of money in USD charged by Bigquery for the amount of data processed by the query."
+
+      - name: 'cost_brl'
+        description: "This column contains the total amount of money in BRL charged by Bigquery for the amount of data processed by the query."
+
+      - name: 'total_tables_processed'
+        description: "This column contains the total number of tables processed by the BigQuery job."
+
+      - name: 'total_slot_processed'
+        description: "This column contains the total number of slot-seconds consumed by the BigQuery job. Slot-seconds are a measure of the computational resources used by the query and are used to calculate the cost of running the job."

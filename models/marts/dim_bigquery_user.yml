@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: 'dim_bigquery_user'
+    description: "User dimension table."
+    columns:
+      - name: 'user_sk'
+        description: 'Table primary key. Made from the user_principal_email column.'
+        tests:
+          - unique
+          - not_null
+
+      - name: 'user_id'
+        description: "This column contains the email address of the user that performed the query"
+        tests:
+          - unique
+          - not_null
