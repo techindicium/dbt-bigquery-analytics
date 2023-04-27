@@ -1,24 +1,10 @@
 {{ config(
     materialized='table'
     , partition_by={
-        'field': 'metric_date'
+        'field': 'date_day'
         , 'data_type': 'date'
     }
-    , cluster_by=['user_fk', 'query_fk', 'metric_date']
-    , meta = {
-            'area': 'monitoring'
-            , 'system': 'Bigquery Analytics'
-            , 'table': 'fact_bigquery_job_statistics'
-            , 'category': 'fact'
-            , 'business_questions': [
-                'What are the metrics by user, query, and date?'
-            ]
-            , 'joins': [
-                'dim_user: fact_query_metrics.user_fk = dim_user.user_sk'
-                , 'dim_query: fact_query_metrics.job_fk = dim_query.job_sk'
-                , 'dim_calendar: fact_query_metrics.metric_date = dim_calendar.metric_date'
-            ]
-        }
+    , cluster_by=['user_fk', 'query_fk', 'date_day']
 ) }}
 
 with
@@ -35,7 +21,7 @@ with
         from {{ ref('dim_bigquery_query') }}
     )
     , utils_days as (
-        select date_day
+        select cast(date_day as date) as date_day
         from {{ ref('dbt_utils_days') }}
     )
     , fact_query_metrics as (

@@ -10,12 +10,6 @@
         }
     }
     , cluster_by=['user_id']
-    , meta = {
-            'area': 'monitoring'
-            , 'system': 'Bigquery Analytics'
-            , 'table': 'dim_bigquery_user'
-            , 'category': 'dimension'
-        }
 ) }}
 
 with

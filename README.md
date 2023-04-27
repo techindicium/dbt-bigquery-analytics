@@ -67,4 +67,4 @@ sources:
 
 ## Running the models
 
-After setting up the package in `dbt_project.yml` and `source.yml` as the previous steps, you can now run the package with the following command line: `dbt run -m bigquery_analytics`. After running it, the 3 models of the package will materialize in your target schema as they have been configured.
+After setting up the package in `dbt_project.yml` and `source.yml` as the previous steps, you can now run the package with the following command line: `dbt run -m bigquery_analytics`. After running it, the 5 models of the package will materialize in your target schema as they have been configured.

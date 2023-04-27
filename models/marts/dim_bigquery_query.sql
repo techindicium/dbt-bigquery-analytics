@@ -10,12 +10,6 @@
         }
     }
     , cluster_by=['job_id']
-    , meta = {
-            'area': 'monitoring'
-            , 'system': 'Bigquery Analytics'
-            , 'table': 'dim__bigquery_query'
-            , 'category': 'dimension'
-        }
 ) }}
 
 with
