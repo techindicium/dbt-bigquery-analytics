@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: 'dim_bigquery_query'
+    description: "Query dimension table."
+    columns:
+      - name: 'query_sk'
+        description: 'Table primary key. Made from the job_id column.'
+        tests:
+          - unique
+          - not_null
+
+      - name: 'job_id'
+        description: "This column contains the unique identifier for the BigQuery job that ran the query."
+        tests:
+          - unique
+          - not_null
+
+      - name: 'query'
+        description: "This column contains the SQL query that was executed by the BigQuery job."
+
+      - name: 'query_type'
+        description: "This column contains the origin of the SQL query. Possible values include 'dbt', 'Power BI', 'Hevo', or 'BigQuery console'."
+
+      - name: 'query_dbt_type'
+        description: "This column indicates the type of query executed in dbt. Possible values include 'dbt model', 'dbt test', 'dbt seed', or 'dbt snapshots'."
