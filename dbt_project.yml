@@ -9,3 +9,6 @@ target-path: "target"
 clean-targets: ["target", "dbt_modules", "dbt_packages"]
 macro-paths: ["macros"]
 log-path: "logs"
+
+vars:
+  region: "region-us" ## vars to fit your use case

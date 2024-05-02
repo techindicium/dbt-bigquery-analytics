@@ -2,61 +2,56 @@ version: 2
 
 sources:
 
-  - name: bigquery_logging_sink
-    description: "Data source containing log information extracted from Google BigQuery."
-    schema: bigquery_logging_sink
+  - name: bigquery_info_schema
+    description: "Data source containing the information schema for the jobs from Google BigQuery."
+    database: "{{ target.database }}.{{ var('region') }}" ## vars to fit your use case
+    schema: INFORMATION_SCHEMA
     tables:
-      - name: cloudaudit_googleapis_com_data_access
+      - name: JOBS
         description: "This table contains a collection of logs provided by Google Cloud that allow insight into operational concerns related to the use of Bigquery service."
         columns:
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobName.jobId
+          - name: job_id
             description: "This column contains the unique identifier for the BigQuery job that ran the query."
             tests:
               - not_null
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobStatistics.createTime
-            description: "This column contains the timestamp indicating when the query was created."
-
-          - name: protopayload_auditlog.authenticationInfo.principalEmail
+          - name: user_email
             description: "This column contains the email address of the user that performed the query"
             tests:
               - not_null
 
-          - name: resource.type
-            description: "The Google Cloud resource used, in this case, Bigquery"
+          - name: creation_time
+            description: "This column contains the timestamp indicating when the query was created."
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobConfiguration.query.query
+          - name: job_type
+            description: "The type of the job (e.g., QUERY, LOAD, EXPORT, etc.). This helps in categorizing the jobs and analyzing system usage by job type."
+
+          - name: query
             description: "This column contains the SQL query that was executed by the BigQuery job."
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobStatistics.startTime
+          - name: start_time
             description: "This column contains the timestamp indicating when the query started executing."
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobStatistics.endTime
+          - name: end_time
             description: "This column contains the timestamp indicating when the query finished executing."
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobStatistics.referencedTables.datasetId
+          - name: referenced_tables.dataset_id
             description: "This column contains the ID of the dataset that contains the table(s) referenced in the query."
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobStatistics.referencedTables.TableId
+          - name: referenced_tables.table_id
             description: "This column contains the ID of the table(s) referenced in the query."
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobQueryDoneResponse.job.jobConfiguration.query.destinationTable.datasetId
+          - name: destination_table.dataset_id
             description: "This column contains the ID of the destination dataset for the results of the query. If the query does not have a destination table, this column will be null."
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobQueryDoneResponse.job.jobConfiguration.query.destinationTable.tableId
+          - name: destination_table.table_id
             description: "This column contains the ID of the destination table for the results of the query. If the query does not have a destination table, this column will be null."
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobStatistics.totalTablesProcessed
-            description: "This column contains the total number of tables processed by the BigQuery job."
-
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobStatistics.totalSlotMs
+          - name: total_slot_ms
             description: "Contain the amount of time in milliseconds processed in query."
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobStatistics.totalProcessedBytes
+          - name: total_bytes_processed
             description: "This column contains the total number of bytes processed by the BigQuery job."
 
-          - name: protopayload_auditlog.servicedata_v1_bigquery.jobGetQueryResultsResponse.job.jobStatistics.totalBilledBytes
-            description: "This column contains the total number of bytes billed by the BigQuery job"
-
-      - name: dbt_utils_days
-        description: "Data table created from a macro from dbt_utils."
+          - name: total_bytes_billed
+            description: "This column contains the total number of bytes billed by the BigQuery job."

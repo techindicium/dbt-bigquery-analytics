@@ -46,6 +46,7 @@ models:
 vars:
     dbt_bigquery_analytics:
         bigquery_analytics_start_date: cast('2023-01-01' as date) # inside the double quotes, add the start date of the project
+    region: "region-us"
 ```
 
 ## Configuring project sources
@@ -56,13 +57,11 @@ The project's sources can be configured in your `source.yml`, normally on your s
 
 ```yaml
 sources:
-  - name: bigquery_logging_sink
-    description: "Data source containing log information extracted from Google BigQuery."
-    schema: bigquery_logging_sink # pay attention in the schema's name in BQ
+  - name: bigquery_info_schema
+    schema: INFORMATION_SCHEMA
+    database: "{{ target.database }}.{{ var('region') }}" ## vars to fit your use case
     tables:
-      - name: cloudaudit_googleapis_com_data_access # pay attention in the table's name in BQ
-        description: "This table contains a collection of logs provided by Google Cloud that allow insight into operational concerns related to the use of Bigquery service."
-        columns:
+      - name: JOBS
 ```
 
 ## Running the models

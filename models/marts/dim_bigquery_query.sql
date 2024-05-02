@@ -17,7 +17,7 @@ with
         select distinct
             job_id
             , query
-        from {{ ref('stg_cloudaudit_googleapis_com_data_access') }}
+        from {{ ref('stg_bigquery_analytics_information_schema_jobs') }}
     )
     , dim_query_type as (
         select
@@ -25,8 +25,8 @@ with
             , query
             , case
                 when query like '%dbt_version%' then 'dbt'
-                when query like '%C1%' then 'Power BI'
-                when query like '%HEVO%' then 'Hevo'
+                when query like '%__HEVO_QUERY%' then 'Hevo'
+                when query like '%`C1`%' then 'Power BI'
                 else 'Bigquery'
             end as query_type
         from dim_query

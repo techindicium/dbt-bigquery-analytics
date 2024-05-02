@@ -15,7 +15,7 @@
 with
     dim_user as (
         select distinct user_id
-        from {{ ref('stg_cloudaudit_googleapis_com_data_access') }}
+        from {{ ref('stg_bigquery_analytics_information_schema_jobs') }}
     )
     , dim_user_sk as (
         select
