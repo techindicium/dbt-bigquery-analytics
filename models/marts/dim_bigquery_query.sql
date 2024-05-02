@@ -25,7 +25,6 @@ with
             , query
             , case
                 when query like '%dbt_version%' then 'dbt'
-                when query like '%__HEVO_QUERY%' then 'Hevo'
                 when query like '%`C1`%' then 'Power BI'
                 else 'Bigquery'
             end as query_type
