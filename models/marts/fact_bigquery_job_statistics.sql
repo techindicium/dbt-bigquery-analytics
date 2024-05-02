@@ -20,9 +20,9 @@ with
             , job_id
         from {{ ref('dim_bigquery_query') }}
     )
-    , dim_calendar as (
-        select metric_date
-        from {{ ref('dim_calendar') }}
+    , utils_days as (
+        select cast(date_day as date) as date_day
+        from {{ ref('dbt_utils_days') }}
     )
     , fact_query_metrics as (
         select
@@ -52,7 +52,7 @@ with
             ]) }} as metrics_sk
             , dim_user.user_sk as user_fk
             , dim_query.query_sk as query_fk
-            , dim_calendar.metric_date
+            , utils_days.date_day
             , fact_query_metrics.start_timestamp
             , fact_query_metrics.end_timestamp
             , fact_query_metrics.referenced_dataset_id
@@ -68,7 +68,7 @@ with
         from fact_query_metrics
         left join dim_user on fact_query_metrics.user_id = dim_user.user_id
         left join dim_query on fact_query_metrics.job_id = dim_query.job_id
-        left join dim_calendar on fact_query_metrics.metric_date = dim_calendar.metric_date
+        left join utils_days on fact_query_metrics.metric_date = utils_days.date_day
     )
 select *
 from fact_job_statistics
