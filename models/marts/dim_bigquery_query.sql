@@ -25,7 +25,7 @@ with
             , query
             , case
                 when query like '%dbt_version%' then 'dbt'
-                when query like '%`C1`%' then 'Power BI'
+                when query like '%C1%' then 'Power BI'
                 else 'Bigquery'
             end as query_type
         from dim_query
