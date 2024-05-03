@@ -2,7 +2,7 @@
 with
     dates_raw as (
     select *
-    from {{ ref('dbt_utils_days') }}
+    from {{ ref('bigquery_dbt_utils_days') }}
     )
 
 /* extraindo algumas informações da data e renomeando algumas colunas para o português */
