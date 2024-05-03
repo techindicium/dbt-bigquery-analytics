@@ -1,6 +1,5 @@
 {{ config(
-    materialized='table'
-    , partition_by={
+    partition_by={
         'field': 'date_day'
         , 'data_type': 'date'
     }
@@ -45,7 +44,7 @@ with
     )
     , fact_job_statistics as (
         select
-            {{ numeric_surrogate_key([
+            {{ dbt_utils.generate_surrogate_key([
                 'dim_user.user_sk'
                 , 'dim_query.query_sk'
                 , 'fact_query_metrics.metric_date'
