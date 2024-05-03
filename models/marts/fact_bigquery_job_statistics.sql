@@ -21,7 +21,7 @@ with
     )
     , utils_days as (
         select cast(date_day as date) as date_day
-        from {{ ref('dbt_utils_days') }}
+        from {{ ref('bigquery_dbt_utils_days') }}
     )
     , fact_query_metrics as (
         select
