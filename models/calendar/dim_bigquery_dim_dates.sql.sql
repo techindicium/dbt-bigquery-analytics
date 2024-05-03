@@ -14,7 +14,7 @@ with
             , extract(quarter from date_day) as trimestre
             , extract(dayofyear from date_day) as dia_do_ano
             , extract(year from date_day) as ano
-            , format_date('%d%m', date_day) dia_mes
+            , format_date('%d%m', date_day) as dia_mes
         from dates_raw
     )
 
