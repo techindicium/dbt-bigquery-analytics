@@ -1,15 +1,5 @@
 {{ config(
-    materialized='table'
-    , partition_by={
-        'field': 'query_sk'
-        , 'data_type': 'int64'
-        , "range": {
-            "start": -9223372036854775807
-            , "end": 9223372036854775807
-            , "interval": 18446744073709500
-        }
-    }
-    , cluster_by=['job_id']
+    cluster_by=['job_id']
 ) }}
 
 with
@@ -32,7 +22,7 @@ with
     )
     , dim_query_sk as (
         select
-            {{ numeric_surrogate_key(['job_id']) }} as query_sk
+            {{ dbt_utils.generate_surrogate_key(['job_id']) }} as query_sk
             , job_id
             , query
             , query_type
