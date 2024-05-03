@@ -34,6 +34,12 @@ models:
               to: ref('dim_calendar')
               field: metric_date
 
+      - name: 'start_timestamp'
+        description: "This column contains timestamp indicating when the query started executing."
+
+      - name: 'end_timestamp'
+        description: "This column contains timestamp indicating when the query ended executing."
+
       - name: 'referenced_dataset_id'
         description: "This column contains the ID of the dataset that contains the table(s) referenced in the query."
 
@@ -57,9 +63,6 @@ models:
 
       - name: 'cost_brl'
         description: "This column contains the total amount of money in BRL charged by Bigquery for the amount of data processed by the query."
-
-      - name: 'total_tables_processed'
-        description: "This column contains the total number of tables processed by the BigQuery job."
 
       - name: 'total_slot_processed'
         description: "This column contains the total number of slot-seconds consumed by the BigQuery job. Slot-seconds are a measure of the computational resources used by the query and are used to calculate the cost of running the job."

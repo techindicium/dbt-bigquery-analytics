@@ -29,20 +29,19 @@ with
             job_id
             , user_id
             , metric_date
-            , start_time
-            , end_time
+            , start_timestamp
+            , end_timestamp
             , referenced_dataset_id
             , referenced_table_id
             , destination_dataset_id
             , destination_table_id
-            , timestamp_diff(end_time, start_time, second) as query_time
-            , total_processed_bytes/(1048576) as total_processed_mb
-            , (total_billed_bytes/(1048576)) as total_billed_mb
-            , (total_billed_bytes/(1099511627776)) as query_cost_usd
-            , (total_billed_bytes/(1099511627776)*5) as query_cost_brl
-            , total_tables_processed
+            , timestamp_diff(end_timestamp, start_timestamp, second) as query_time
+            , total_bytes_processed/(1048576) as total_processed_mb
+            , (total_bytes_billed/(1048576)) as total_billed_mb
+            , (total_bytes_billed/(1099511627776)) as query_cost_usd
+            , (total_bytes_billed/(1099511627776)*5) as query_cost_brl
             , total_slot_ms_processed/1000 as total_slot_processed
-        from {{ ref('stg_cloudaudit_googleapis_com_data_access') }}
+        from {{ ref('stg_bigquery_analytics_information_schema_jobs') }}
     )
     , fact_job_statistics as (
         select
@@ -54,8 +53,8 @@ with
             , dim_user.user_sk as user_fk
             , dim_query.query_sk as query_fk
             , utils_days.date_day
-            , fact_query_metrics.start_time
-            , fact_query_metrics.end_time
+            , fact_query_metrics.start_timestamp
+            , fact_query_metrics.end_timestamp
             , fact_query_metrics.referenced_dataset_id
             , fact_query_metrics.referenced_table_id
             , fact_query_metrics.destination_dataset_id
@@ -65,7 +64,6 @@ with
             , fact_query_metrics.total_billed_mb
             , fact_query_metrics.query_cost_usd
             , fact_query_metrics.query_cost_brl
-            , fact_query_metrics.total_tables_processed
             , fact_query_metrics.total_slot_processed
         from fact_query_metrics
         left join dim_user on fact_query_metrics.user_id = dim_user.user_id
