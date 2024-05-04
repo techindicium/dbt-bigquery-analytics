@@ -15,7 +15,7 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('dim_user')
+              to: ref('dim_bigquery_user')
               field: user_sk
 
       - name: 'query_fk'
@@ -23,16 +23,16 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('dim_query')
+              to: ref('dim_bigquery_query')
               field: query_sk
 
-      - name: 'metric_date'
-        description: "Foreign key from dim_calendar table"
+      - name: 'date_day'
+        description: "This columns represts the date day."
         tests:
           - not_null
           - relationships:
-              to: ref('dim_calendar')
-              field: metric_date
+              to: ref('dim_bigquery_dim_dates')
+              field: data_dia
 
       - name: 'start_timestamp'
         description: "This column contains timestamp indicating when the query started executing."
