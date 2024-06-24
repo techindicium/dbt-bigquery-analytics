@@ -15,7 +15,7 @@ with
             , total_slot_ms as total_slot_ms_processed
             , total_bytes_processed
             , total_bytes_billed
-        from {{ source('bigquery_info_schema', 'JOBS') }}
+        from {{ source('bigquery_info_schema', 'information_schema_jobs') }}
     )
 select *
 from info_schema

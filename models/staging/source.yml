@@ -4,10 +4,11 @@ sources:
 
   - name: bigquery_info_schema
     description: "Data source containing the information schema for the jobs from Google BigQuery."
-    database: "{{ target.database }}.{{ var('region') }}" ## vars to fit your use case
-    schema: INFORMATION_SCHEMA
+    database: "{{ target.database }}" ## vars to fit your use case
+    schema: "{{ var('region') }}"
     tables:
-      - name: JOBS
+      - name: information_schema_jobs
+        identifier: INFORMATION_SCHEMA.JOBS
         description: "This table contains a collection of logs provided by Google Cloud that allow insight into operational concerns related to the use of Bigquery service."
         columns:
           - name: job_id
