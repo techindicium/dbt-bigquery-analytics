@@ -66,7 +66,7 @@ with
             , fact_query_metrics.total_slot_processed
         from fact_query_metrics
         left join dim_user on fact_query_metrics.user_id = dim_user.user_id
-        left join dim_query on fact_query_metrics.job_id = dim_query.job_id
+        inner join dim_query on fact_query_metrics.job_id = dim_query.job_id
         left join utils_days on fact_query_metrics.metric_date = utils_days.date_day
     )
 select *
