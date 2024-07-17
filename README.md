@@ -2,6 +2,16 @@
 
 This package allows you to easily monitor and manage your BigQuery query costs, identifying costly queries in order to enhance optimizing and resource saving.
 
+## Before creating a branch
+
+Pay attention, it is very important to know if your modification to this repository is a release (breaking changes), a feature (functionalities) or a patch(to fix bugs). With that information, create your branch name like this:
+
+- `release/<branch-name>`
+- `feature/<branch-name>`
+- `patch/<branch-name>`
+
+If branch is already made, just rename it _before passing the pull request_.
+
 # :running: Quickstart
 
 New to dbt packages? Read more about them [here](https://docs.getdbt.com/docs/building-a-dbt-project/package-management/).
