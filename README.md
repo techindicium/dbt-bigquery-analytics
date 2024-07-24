@@ -1,4 +1,6 @@
 # BigQuery Analytics
+## This repository is in experimental stage. It is NOT ready for production.
+### Changes are being made.
 
 This package allows you to easily monitor and manage your BigQuery query costs, identifying costly queries in order to enhance optimizing and resource saving.
 
