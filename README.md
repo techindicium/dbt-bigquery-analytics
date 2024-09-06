@@ -39,7 +39,15 @@ packages:
 
 ## Configuring models package
 
-The package's models can be configured in your `dbt_project.yml` by specifying the package under `models` node. The BQ queries's start date you want to monitor also must be declared in vars node.
+The package's models can be configured in your `dbt_project.yml` by specifying the package under `models` node. 
+
+The BQ queries's start date you want to monitor also must be declared in vars node. 
+
+We add some other variables to improve your monitoring and management of BigQuery. Some of them are related with dbt. You can add your dbt targets and sources.
+
+It is important to add the exchange rate between USD dollar and BRL real and the price per terabyte processed.
+
+Something important to point out is that the models created by this package are not restrictered to dbt, in this way when the informations about BigQuery have no relation to dbt, you'll see the coluns related to dbt bringing something like `others` or `inaplicable`.
 
 ### Models
 
@@ -56,9 +64,21 @@ models:
 
 ```yaml
 vars:
-    dbt_bigquery_analytics:
-        bigquery_analytics_start_date: cast('2023-01-01' as date) # inside the double quotes, add the start date of the project
-    region: "region-us"
+  dbt_bigquery_analytics:
+      bigquery_analytics_start_date: cast('2023-01-01' as date) # inside the double quotes, add the start date of the project
+  region: "region-us"
+  usd_dollars_real: 5.58 # here you can add the price of the dollar in reais
+  price_per_tib: 6.25 # here you can add the price per terabyte processed
+  dbt_sources: [
+      'adw'
+      , 'adf'
+      , 'databricks_workflow'
+  ] # you can configure the sources of your procject here
+  ci_dbt_target: 'ci' # add the CI/CD target of your dbt project
+  prod_dbt_target: 'prod' # add the development target of your dbt project
+  dev_dbt_target: 'dev' # add the production target of your dbt project
+  dbt_source_monitoring_dataset: 'raw_monitoring' # if you have one, add a source dataset of your monitoring data
+  dbt_prod_monitoring_dataset: 'public_monitoring' # if you have one, add the destination dataset of your monitoring transformed data
 ```
 
 ## Configuring project sources
@@ -68,6 +88,8 @@ The project's sources can be configured in your `source.yml`, normally on your s
 ### Source configuration
 
 ```yaml
+version: 2
+
 sources:
   - name: bigquery_info_schema
     schema: INFORMATION_SCHEMA
@@ -78,4 +100,4 @@ sources:
 
 ## Running the models
 
-After setting up the package in `dbt_project.yml` and `source.yml` as the previous steps, you can now run the package with the following command line: `dbt run -m bigquery_analytics`. After running it, the 5 models of the package will materialize in your target schema as they have been configured.
+After setting up the package in `dbt_project.yml` and `source.yml` as the previous steps, you can now run the package with the following command line: `dbt run -s bigquery_analytics`. After running it, the 5 models of the package will materialize in your target schema as they have been configured.
