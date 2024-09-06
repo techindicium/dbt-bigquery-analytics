@@ -37,8 +37,12 @@ with
             , timestamp_diff(end_timestamp, start_timestamp, second) as query_time
             , total_bytes_processed/(1048576) as total_processed_mb
             , (total_bytes_billed/(1048576)) as total_billed_mb
-            , (total_bytes_billed/(1099511627776)) as query_cost_usd
-            , (total_bytes_billed/(1099511627776)*5) as query_cost_brl
+            , (total_bytes_billed/(1073741824)) as total_billed_gib
+            , (total_bytes_billed/(1099511627776)) as total_billed_tib
+            , (total_bytes_billed/(1099511627776) * {{ var('price_per_tib', '1') }}) as query_cost_usd
+            , (total_bytes_billed/(1099511627776) * (
+                {{ var('price_per_tib', '1') }} * {{ var('usd_dollars_real', '1') }}
+            )) as query_cost_brl
             , total_slot_ms_processed/1000 as total_slot_processed
         from {{ ref('stg_bigquery_analytics_information_schema_jobs') }}
     )

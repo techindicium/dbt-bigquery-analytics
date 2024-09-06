@@ -24,3 +24,12 @@ models:
 
       - name: 'query_dbt_type'
         description: "This column indicates the type of query executed in dbt. Possible values include 'dbt model', 'dbt test', 'dbt seed', or 'dbt snapshots'."
+      
+      - name: 'query_dbt_target'
+        description: "This column contains the target of the dbt query. Possible values include 'dev', 'prod', or 'ci'."
+      
+      - name: 'dbt_source_reference'
+        description: "This column contains the source of the query."
+      
+      - name: 'objective'
+        description: "This column contains the objective of the query. Possible values include 'CI', 'DEV', 'PROD', 'Monitoring', 'Power BI', 'Airflow', or 'Undefined'."
