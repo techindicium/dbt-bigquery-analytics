@@ -40,7 +40,7 @@ with
             , (total_bytes_billed/(1073741824)) as total_billed_gib
             , (total_bytes_billed/(1099511627776)) as total_billed_tib
             , (total_bytes_billed/(1099511627776) * {{ var('price_per_tib', '') }}) as query_cost_usd
-            , (total_bytes_billed/(099511627776) * {{ var('price_per_tib_brl', '') }}) as query_cost_brl
+            , (total_bytes_billed/(1099511627776) * {{ var('price_per_tib_brl', '') }}) as query_cost_brl
             , total_slot_ms_processed/1000 as total_slot_processed
         from {{ ref('stg_bigquery_analytics_information_schema_jobs') }}
     )
