@@ -9,8 +9,8 @@ on:
       - main   
 
 env:
-    DBT_PROFILES_DIR: ${{ github.workspace }}
-    DBT_PROJECT_DIR: ${{ github.workspace }}
+    DBT_PROFILES_DIR: ${{ github.workspace }}/integration_tests
+    DBT_PROJECT_DIR: ${{ github.workspace }}/integration_tests
     BIGQUERY_DATASET: ci_dbt_bigquery_analytics
     BIGQUERY_PROJECT: indicium-sandbox
     DBT_JOB_TIMEOUT: 300

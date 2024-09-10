@@ -1,4 +1,4 @@
-dbt-bigquery-analytics:
+bigquery_analytics_test:
   target: bigquery
   outputs:
     bigquery:
