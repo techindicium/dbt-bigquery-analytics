@@ -25,6 +25,7 @@ vars:
   region: "region-us"
   usd_dollars_real: 5.58 # here you can add the price of the dollar in reais
   price_per_tib: 6.25 # here you can add the price per terabyte processed
+  price_per_tib_brl: 40.167405531
   dbt_sources: [
       'adw'
       , 'adf'
