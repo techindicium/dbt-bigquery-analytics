@@ -67,8 +67,8 @@ vars:
   dbt_bigquery_analytics:
       bigquery_analytics_start_date: cast('2023-01-01' as date) # inside the double quotes, add the start date of the project
   region: "region-us"
-  usd_dollars_real: 5.58 # here you can add the price of the dollar in reais
-  price_per_tib: 6.25 # here you can add the price per terabyte processed
+  price_per_tib: 6.25 # here you need add the price per tebibyte processed in USD. At the moment, this is the cost.
+  price_per_tib_brl: 40.167405531 # here you need add the price per tebibyte processed in BRL. At the moment, this is the cost.
   dbt_sources: [
       'adw'
       , 'adf'
@@ -95,7 +95,8 @@ sources:
     schema: INFORMATION_SCHEMA
     database: "{{ target.database }}.{{ var('region') }}" ## vars to fit your use case
     tables:
-      - name: JOBS
+      - name: information_schema_jobs
+        identifier: JOBS
 ```
 
 ## Running the models
