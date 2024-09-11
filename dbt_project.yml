@@ -10,5 +10,29 @@ clean-targets: ["target", "dbt_modules", "dbt_packages"]
 macro-paths: ["macros"]
 log-path: "logs"
 
-vars:
-  region: "region-us" ## vars to fit your use case
+# When running dbt-bigquery-analytics in your project, you must add the following configurations:
+
+# models:
+#     bigquery_analytics:
+#         staging:
+#             materialized: ephemeral
+#         marts:
+#             materialized: table
+
+# vars:
+#   dbt_bigquery_analytics:
+#       bigquery_analytics_start_date: cast('2023-01-01' as date) # inside the double quotes, add the start date of the project
+#   region: "region-us"
+#   usd_dollars_real: 5.58 # here you can add the price of the dollar in reais
+#   price_per_tib: 6.25 # here you can add the price per terabyte processed
+#   price_per_tib_brl: 40.167405531
+#   dbt_sources: [
+#       'adw'
+#       , 'adf'
+#       , 'databricks_workflow'
+#   ] # you can configure the sources of your procject here
+#   ci_dbt_target: 'ci' # add the CI/CD target of your dbt project
+#   prod_dbt_target: 'prod' # add the development target of your dbt project
+#   dev_dbt_target: 'dev' # add the production target of your dbt project
+#   dbt_source_monitoring_dataset: 'raw_monitoring' # if you have one, add a source dataset of your monitoring data
+#   dbt_prod_monitoring_dataset: 'public_monitoring' # if you have one, add the destination dataset of your monitoring transformed data
