@@ -23,7 +23,7 @@ Pay attention, it is very important to know if your modification to this reposit
 
 - `release/<branch-name>` or `major/<branch-name>` or `Release/<branch-name>` or `Major/<branch-name>`
 - `feature/<branch-name>` or `minor/<branch-name>` with capitalised letters work as well
-- `patch/<branch-name>` or `fix/<branch-name>` or `hotfix/<branch-name>` with capitalised letters work as well
+- `patch/<branch-name>` or `fix/<branch-name>` or `hotfix/<branch-name>` or `bugfix/<branch-name>` with capitalised letters work as well
 
 If branch is already made, just rename it _before passing the pull request_.
 
