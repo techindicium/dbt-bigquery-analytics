@@ -3,3 +3,5 @@ integration_tests/target/
 integration_tests/.env
 integration_tests/.user.yml
 integration_tests/dbt_packages
+integration_tests/env
+integration_tests/package-lock.yml

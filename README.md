@@ -102,3 +102,29 @@ sources:
 ## Running the models
 
 After setting up the package in `dbt_project.yml` and `source.yml` as the previous steps, you can now run the package with the following command line: `dbt run -s bigquery_analytics`. After running it, the 5 models of the package will materialize in your target schema as they have been configured.
+
+# Testing modifications in dbt-bigquery-analytics
+
+Inside the integration_tests folder, you can use the setup.sh to auxiliate the creation of an env and installation of requirements.txt for you.
+
+The only commands that you need to do is:
+
+```chmod +x setup.sh```
+and
+```source setup.sh```
+
+Inside the integration_tests folder, you have the dbt_project already configured, you have profiles.yml already set to BigQuery. 
+To make a connection to BigQuery, so you can start testing, you should have credentials in indicium-sandbox project.
+
+To set your credentials in your environment, you should rename the example.env:
+```example.env``` --> ```.env```.
+
+You should put the name of your dataset 
+
+```dev_firstName_lastName```
+
+and then do the command
+
+```source .env```
+
+Now you can use your credentials in your environment. Dbt debug it!
