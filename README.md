@@ -4,6 +4,19 @@
 
 This package allows you to easily monitor and manage your BigQuery query costs, identifying costly queries in order to enhance optimizing and resource saving.
 
+# Table of Contents
+
+- [Before creating a branch](#Before-creating-a-branch)
+- [Quickstart](#:running:-Quickstart)
+  - [Requirements](#Requirements)
+  - [Installation](#Installation)
+  - [Configuring package](#Configuring-models-package)
+    - [Models](#Models)
+    - [Vars](#Vars)
+    - [Source](#Source)
+  - [Running the models](#Running-the-models)
+  - [Testing modifications in the project](#Testing-modifications-in-the-project)
+
 ## Before creating a branch
 
 Pay attention, it is very important to know if your modification to this repository is a release (breaking changes), a feature (functionalities) or a patch(to fix bugs). With that information, create your branch name like this:
@@ -37,7 +50,7 @@ packages:
 
 
 
-## Configuring models package
+## Configuring package
 
 The package's models can be configured in your `dbt_project.yml` by specifying the package under `models` node. 
 
@@ -81,11 +94,9 @@ vars:
   dbt_prod_monitoring_dataset: 'public_monitoring' # if you have one, add the destination dataset of your monitoring transformed data
 ```
 
-## Configuring project sources
+### Source
 
 The project's sources can be configured in your `source.yml`, normally on your staging folder. Attention is needed while naming the source' schema and tables names to ensure you are matching the name BigQuery sets on the and schema and table with your source. If the names match, your package will work as expected.
-
-### Source configuration
 
 ```yaml
 version: 2
@@ -103,7 +114,7 @@ sources:
 
 After setting up the package in `dbt_project.yml` and `source.yml` as the previous steps, you can now run the package with the following command line: `dbt run -s bigquery_analytics`. After running it, the 5 models of the package will materialize in your target schema as they have been configured.
 
-# Testing modifications in dbt-bigquery-analytics
+## Testing modifications in the project
 
 Inside the integration_tests folder, you can use the setup.sh to auxiliate the creation of an env and installation of requirements.txt for you.
 
